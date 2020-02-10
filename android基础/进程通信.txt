@@ -1,0 +1,8 @@
+进程间通信即IPC,英文全称Inter-Process Communication,是指进程间数据交互的过程. Android底层是基于Linux,而Linux基于安全考虑,是不允许两个进程间直接操作对方的数据,这就是进程隔离. 六种常用姿势:
+
+Bundle
+文件共享
+AIDL
+Messenger
+ContentProvider
+Socket

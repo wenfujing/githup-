@@ -1,0 +1,37 @@
+1、getSupportFragmentManager() getFragmentManager() getChildFragmentManager()的区别
+
+getSupportFragmentManager():Activity中使用 
+getFragmentManager():Fragment中使用 获取所在Fragment的父容器的管理器 
+getChildFragmentManager():Fragment中使用 获取所在Fragment里面子容器的管理器 
+注:Fragment嵌套Fragment要用getChildFragmentManager().
+
+2、简单比较 SpareArray 和 HashMap
+
+SpareseArray 也是通过键值对存储数据，只是key为整形int , 类似于key = Interger 的HashMap，但是SpareseArray 的key 为 int 非 Interger ，更省空间。
+SpareArray 意为稀松数组，其结构类似于数组结构，依次排开；HashMap是散列列表，根据hash值来存储；因此SpareArray 会比 HashMap节省很多空间。
+从查找速度 和 插入效率来看，如果是正序插入( 0 ->size插入)，SpareArray 的插入效率会高于 HashMap。
+如果是逆序插入(size -> 0)的顺序插入，则SpareArray 的插入效率表现是最差的，会低于HashMap。
+SpareArray 在逆序插入效率很低，是因为 每次插入 SpareArray 都会采用二分查找来定位。
+从查找速度来来考虑，HashMap的查找速度 会 高于 SparseArray。
+通过以上分析，SpareArray 相对于 HashMap的最大优势在内存空间。因此谷歌推荐使用 SpareArray 代替 HashMap
+
+3、URI和URL的区别是什么
+URI(Uniform Resource Identifier) 是统一资源标志符，可以唯一标识一个资源。 URL(Uniform Resource Location) 是统一资源定位符，可以提供该资源的路径。它是一种具体的 URI，即 URL 可以用来标识一个资源，而且还指明了如何 locate 这个资源。 URI的作用像身份证号一样，URL的作用更像家庭住址一样。URL是一种具体的URI，它不仅唯一标识资源，而且还提供了定位该资源的信息。
+
+4、理解Activity，View,Window三者关系
+
+Activity像一个工匠（控制单元），Window像窗户（承载模型），View像窗花（显示视图）LayoutInflater像剪刀，Xml配置像窗花图纸。 1：Activity构造的时候会初始化一个Window，准确的说是PhoneWindow。 2：这个PhoneWindow有一个“ViewRoot”，这个“ViewRoot”是一个View或者说ViewGroup，是最初始的根视图。 3：“ViewRoot”通过addView方法来一个个的添加View。比如TextView，Button等 4：这些View的事件监听，是由WindowManagerService来接受消息，并且回调Activity函数。比如onClickListener，onKeyDown等
+
+5、Serializable和Parcelable的区别
+
+Serializable（Java自带）： Serializable是序列化的意思，表示将一个对象转换成可存储或可传输的状态。序列化后的对象可以在网络上进行传输，也可以存储到本地。
+
+Parcelable（android 专用）： 除了Serializable之外，使用Parcelable也可以实现相同的效果， 不过不同于将对象进行序列化，Parcelable方式的实现原理是将一个完整的对象进行分解， 而分解后的每一部分都是Intent所支持的数据类型，这样也就实现传递对象的功能了。
+
+在使用内存的时候，Parcelable 类比Serializable性能高，所以推荐使用Parcelable类。
+Serializable在序列化的时候会产生大量的临时变量，从而引起频繁的 GC。
+Parcelable 不能使用在要将数据存储在磁盘上的情况。尽管 Serializable 效率低点，但在这种情况下，还是建议你用Serializable 。
+实现：
+
+Serializable 的实现，只需要继承Serializable 即可。这只是给对象打了一个标记，系统会自动将其序列化。
+Parcelabel 的实现，需要在类中添加一个静态成员变量 CREATOR，这个变量需要继承Parcelable.Creator 接口，（一般利用编译器可以自动生成）。
